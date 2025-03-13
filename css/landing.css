@@ -98,12 +98,13 @@ h1 {
 
 .form-group {
   margin-bottom: 20px;
+  width: 80%;
 }
 
 label {
   display: block;
   margin-bottom: 8px;
-  font-weight: 500;
+  font-weight: 300;
   color: #444;
 }
 
@@ -119,6 +120,7 @@ textarea {
   transition: border-color 0.3s;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  font-weight: 300;
 }
 
 input[type="text"]:focus,
@@ -166,9 +168,13 @@ button[type="submit"]:hover {
   .dashboard-image {
     flex: 0 0 200px;
     min-height: 200px;
+    display: none;
   }
 
   .dashboard-form {
     padding: 30px 20px;
+  }
+  .form-group {
+    width: 100%;
   }
 }
