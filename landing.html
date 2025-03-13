@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Student Dashboard</title>
+        <meta name="description" content="Student Dashboard">
+        <meta name="viewport" content="width=device-width">
+        
+        <!-- Added Poppins font from Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+        
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="css/font.css">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/dashboard.css">
+        <link rel="stylesheet" href="css/landing.css">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <header>
+            <img src="images/logo.png" alt="Logo">
+            <button class="logout-btn" id="logoutButton">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </header>
+        
+        <div class="main-container">
+            <div class="dashboard-wrap">
+                <div class="dashboard-image"></div>
+                <div class="dashboard-form">
+                    <h1>Welcome to Your Dashboard</h1>
+                    <form id="feedbackForm">
+                        <div class="form-group">
+                            <label for="eNumber">Last 4 digits of your E-number:</label>
+                            <input type="text" id="eNumber" pattern="[0-9]{4}" maxlength="4" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="major">Major:</label>
+                            <input type="text" id="major" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="year">Current Year in College:</label>
+                            <select id="year" required>
+                                <option value="" disabled selected>Select your year</option>
+                                <option value="freshman">Freshman (1st year)</option>
+                                <option value="sophomore">Sophomore (2nd year)</option>
+                                <option value="junior">Junior (3rd year)</option>
+                                <option value="senior">Senior (4th year)</option>
+                                <option value="graduate">Graduate Student</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="courseTitle">Course Title:</label>
+                            <input type="text" id="courseTitle" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="feedback">Feedback:</label>
+                            <textarea id="feedback" required></textarea>
+                        </div>
+                        
+                        <button type="submit">Save Feedback</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <script src="js/vendor/jquery-3.1.0.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+        <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/dashboard.js"></script>
+        <script>
+            // Simple logout functionality
+            document.getElementById('logoutButton').addEventListener('click', function() {
+                // Add actual logout logic here
+                window.location.href = 'index.html'; // Redirect to login page
+            });
+        </script>
+    </body>
+</html>
