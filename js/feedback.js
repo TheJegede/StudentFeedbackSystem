@@ -1,65 +1,62 @@
-/* global WildRydes _config */
-
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Feedback.js loaded");
+    const form = document.getElementById("feedbackForm");
 
-    // Attach event listener to the feedback form
-    const feedbackForm = document.getElementById("feedbackForm");
-    if (feedbackForm) {
-        feedbackForm.addEventListener("submit", submitFeedback);
-    } else {
-        console.error("Feedback form not found!");
-    }
-});
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent default form submission
 
-async function submitFeedback(event) {
-    event.preventDefault(); // Prevent page reload
+        // Get form values
+        const enumber = document.getElementById("enumber").value.trim();
+        const major = document.getElementById("major").value.trim();
+        const year = document.getElementById("year").value;
+        const course = document.getElementById("courseTitle").value.trim();
+        const feedback = document.getElementById("feedback").value.trim();
 
-    try {
-        // 🔥 Get Cognito token from WildRydes.authToken
-        const token = await WildRydes.authToken;
-        console.log("Token being sent:", token);  // Debugging step
-
-        // Collect feedback form data
-        const feedbackData = {
-            eNumber: document.getElementById("eNumber").value,
-            major: document.getElementById("major").value,
-            year: document.getElementById("year").value,
-            course: document.getElementById("courseTitle").value,
-            feedback: document.getElementById("feedback").value,
-            timestamp: new Date().toISOString()
-        };
-
-        // Ensure required fields are filled
-        if (!feedbackData.eNumber || !feedbackData.feedback) {
-            alert("Please fill in all required fields.");
+        if (!enumber || !major || !year || !course || !feedback) {
+            alert("Please fill in all fields.");
             return;
         }
 
-        // Make API request
-        const response = await fetch(`${window._config.api.invokeUrl}/student`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": token  // Attach JWT Token from Cognito
-            },
-            body: JSON.stringify(feedbackData)
-        });
+        try {
+            // Get Cognito authentication token
+            const authToken = await WildRydes.authToken;
+            if (!authToken) {
+                alert("Authentication failed. Please log in again.");
+                return;
+            }
 
-        if (!response.ok) {
-            throw new Error(`Failed to submit feedback: ${response.statusText}`);
+            // Define API Gateway URL (Replace with your actual API endpoint)
+            const apiUrl = "https://eweqwr1ieh.execute-api.us-east-1.amazonaws.com/dev"; 
+
+            // Prepare request payload
+            const requestBody = {
+                enumber: enumber,
+                major: major,
+                year: year,
+                course: course,
+                feedback: feedback,
+                timestamp: new Date().toISOString(),
+            };
+
+            // Send request to API Gateway
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: authToken, // Include authentication token
+                },
+                body: JSON.stringify(requestBody),
+            });
+
+            const responseData = await response.json();
+            if (response.ok) {
+                alert("Feedback submitted successfully!");
+                form.reset();
+            } else {
+                alert(`Error: ${responseData.message}`);
+            }
+        } catch (error) {
+            console.error("Error submitting feedback:", error);
+            alert("Something went wrong. Please try again.");
         }
-
-        // Handle success response
-        const responseData = await response.json();
-        alert("Feedback submitted successfully!");
-        console.log("Success:", responseData);
-
-        // Optional: Clear form after submission
-        document.getElementById("feedbackForm").reset();
-
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Failed to submit feedback. Ensure you are logged in.");
-    }
-}
+    });
+});
