@@ -1,48 +1,67 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const feedbackForm = document.getElementById("feedbackForm");
-
-    feedbackForm.addEventListener("submit", async function (event) {
-        event.preventDefault(); // Prevent default form submission
-
-        // Capture form values
-        const eNumber = document.getElementById("eNumber").value;
-        const major = document.getElementById("major").value;
-        const year = document.getElementById("year").value;
-        const courseTitle = document.getElementById("courseTitle").value;
-        const feedback = document.getElementById("feedback").value;
-
-        // Construct request payload
-        const requestData = {
-            eNumber: eNumber,
-            major: major,
-            year: year,
-            course: courseTitle,
-            feedback: feedback,
-            timestamp: new Date().toISOString() // Add timestamp
+async function getCognitoToken() {
+    return new Promise((resolve, reject) => {
+        const poolData = {
+            UserPoolId: window._config.cognito.userPoolId,
+            ClientId: window._config.cognito.userPoolClientId
         };
 
-        try {
-            // Send POST request to API Gateway
-            const response = await fetch("https://eweqwr1ieh.execute-api.us-east-1.amazonaws.com/dev/submit-feedback", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(requestData),
-            });
+        const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+        const cognitoUser = userPool.getCurrentUser();
 
-            // Parse the response
-            const responseData = await response.json();
-            
-            if (response.ok) {
-                alert("✅ Feedback submitted successfully!");
-                feedbackForm.reset(); // Clear form after successful submission
-            } else {
-                alert("❌ Error submitting feedback: " + responseData.message);
-            }
-        } catch (error) {
-            console.error("Error:", error);
-            alert("⚠️ Failed to submit feedback. Please try again.");
+        if (cognitoUser) {
+            cognitoUser.getSession((err, session) => {
+                if (err) {
+                    console.error("Error getting session:", err);
+                    reject(err);
+                } else {
+                    console.log("Cognito Token Retrieved");
+                    resolve(session.getIdToken().getJwtToken()); // Return JWT token
+                }
+            });
+        } else {
+            reject("User not logged in");
         }
     });
-});
+}
+
+// Function to send feedback
+async function submitFeedback(event) {
+    event.preventDefault(); // Prevent page reload
+
+    const feedbackData = {
+        eNumber: document.getElementById("eNumber").value,
+        major: document.getElementById("major").value,
+        year: document.getElementById("year").value,
+        course: document.getElementById("courseTitle").value,
+        feedback: document.getElementById("feedback").value,
+        timestamp: new Date().toISOString()
+    };
+
+    try {
+        const token = await getCognitoToken(); // 🔥 Get Cognito Token
+
+        const response = await fetch(`${window._config.api.invokeUrl}/submit-feedback`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token // Attach JWT Token
+            },
+            body: JSON.stringify(feedbackData)
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to submit feedback: ${response.statusText}`);
+        }
+
+        const responseData = await response.json();
+        alert("Feedback submitted successfully!");
+        console.log("Success:", responseData);
+
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Failed to submit feedback. Ensure you are logged in.");
+    }
+}
+
+// Attach function to form submission
+document.getElementById("feedbackForm").addEventListener("submit", submitFeedback);
