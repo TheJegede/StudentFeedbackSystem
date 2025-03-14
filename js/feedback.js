@@ -40,7 +40,7 @@ async function submitFeedback(event) {
     try {
         const token = await getCognitoToken(); // 🔥 Get Cognito Token
 
-        const response = await fetch(`${window._config.api.invokeUrl}/submit-feedback`, {
+        const response = await fetch(`${window._config.api.invokeUrl}/student`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
