@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Authentication failed. Please log in again.");
                 return;
             }
-
+console.log(authToken)
             // Define API Gateway URL (Replace with your actual API endpoint)
             const apiUrl = "https://eweqwr1ieh.execute-api.us-east-1.amazonaws.com/dev/"; 
             // Prepare request payload
