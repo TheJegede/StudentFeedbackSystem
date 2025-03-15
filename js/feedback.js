@@ -43,7 +43,7 @@ console.log(apiUrl);
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${authToken}`, // Include authentication token
+                    Authorization: authToken // Include authentication token
                 },
                 body: JSON.stringify(requestBody),
             });
