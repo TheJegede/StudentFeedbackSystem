@@ -1,31 +1,170 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
-  <!--<![endif]-->
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Email Verification</title>
-    <meta name="description" content="Verify Your Email" />
-    <meta name="viewport" content="width=device-width" />
+    <title>Teacher Dashboard</title>
+    <meta name="description" content="Teacher Course Analytics Dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Added Poppins font from Google Fonts -->
+    <!-- Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      rel="stylesheet"
+    />
 
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="css/font.css" />
     <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/verify.css" />
-    <link rel="stylesheet" href="/css/message.css" />
-    <style></style>
+    <link rel="stylesheet" href="css/teacher.css" />
   </head>
-  <body></body>
+  <body>
+    <header>
+      <img src="images/logo.png" alt="Logo" />
+      <button class="logout-btn" id="logoutButton">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </header>
+
+    <div class="dashboard-container">
+      <div class="sidebar">
+        <h2 style="color: #1e3a8a; margin-bottom: 20px">My Courses</h2>
+        <ul class="course-list">
+          <li class="course-item">
+            <div class="course-item-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <div>
+              <strong>Computer Science 101</strong>
+              <p style="margin: 0; font-size: 12px; color: #666">
+                Introduction to Programming
+              </p>
+            </div>
+          </li>
+          <li class="course-item">
+            <div class="course-item-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div>
+              <strong>Data Analytics</strong>
+              <p style="margin: 0; font-size: 12px; color: #666">
+                Advanced Techniques
+              </p>
+            </div>
+          </li>
+          <li class="course-item">
+            <div class="course-item-icon">
+              <i class="fas fa-network-wired"></i>
+            </div>
+            <div>
+              <strong>Network Security</strong>
+              <p style="margin: 0; font-size: 12px; color: #666">
+                Cybersecurity Fundamentals
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="main-content">
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3 class="card-title">Course Sentiment</h3>
+            <i class="fas fa-chart-pie" style="color: #1e3a8a"></i>
+          </div>
+          <div>
+            <strong>Computer Science 101</strong>
+            <div class="sentiment-bar">
+              <div
+                class="sentiment-progress"
+                style="width: 85%; background-color: #4caf50"
+              ></div>
+            </div>
+            <p style="margin: 5px 0 0; font-size: 14px; color: #4caf50">
+              Positive (85%)
+            </p>
+          </div>
+          <div style="margin-top: 15px">
+            <strong>Data Analytics</strong>
+            <div class="sentiment-bar">
+              <div
+                class="sentiment-progress"
+                style="width: 65%; background-color: #ff9800"
+              ></div>
+            </div>
+            <p style="margin: 5px 0 0; font-size: 14px; color: #ff9800">
+              Neutral (65%)
+            </p>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3 class="card-title">Student Feedback</h3>
+            <i class="fas fa-comment-dots" style="color: #1e3a8a"></i>
+          </div>
+          <div style="text-align: center">
+            <h1 style="color: #1e3a8a; margin: 0">342</h1>
+            <p style="margin: 5px 0 0; color: #666">Total Feedback Received</p>
+            <div
+              style="
+                display: flex;
+                justify-content: space-around;
+                margin-top: 20px;
+              "
+            >
+              <div>
+                <h3 style="color: #4caf50; margin: 0">245</h3>
+                <p style="margin: 5px 0 0; color: #666">Positive</p>
+              </div>
+              <div>
+                <h3 style="color: #ff9800; margin: 0">67</h3>
+                <p style="margin: 5px 0 0; color: #666">Neutral</p>
+              </div>
+              <div>
+                <h3 style="color: #f44336; margin: 0">30</h3>
+                <p style="margin: 5px 0 0; color: #666">Negative</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3 class="card-title">Student Demographics</h3>
+            <i class="fas fa-users" style="color: #1e3a8a"></i>
+          </div>
+          <div class="gender-chart">
+            <div class="gender-item">
+              <div class="gender-icon" style="color: #1e3a8a">
+                <i class="fas fa-male"></i>
+              </div>
+              <strong>Male</strong>
+              <p style="margin: 5px 0 0; color: #666">62%</p>
+            </div>
+            <div class="gender-item">
+              <div class="gender-icon" style="color: #e91e63">
+                <i class="fas fa-female"></i>
+              </div>
+              <strong>Female</strong>
+              <p style="margin: 5px 0 0; color: #666">38%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("logoutButton")
+        .addEventListener("click", function () {
+          window.location.href = "index.html";
+        });
+    </script>
+  </body>
 </html>
