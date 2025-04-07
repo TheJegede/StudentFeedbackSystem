@@ -34,40 +34,8 @@
     <div class="dashboard-container">
       <div class="sidebar">
         <h2 style="color: #1e3a8a; margin-bottom: 20px">My Courses</h2>
-        <ul class="course-list">
-          <li class="course-item">
-            <div class="course-item-icon">
-              <i class="fas fa-code"></i>
-            </div>
-            <div>
-              <strong>Computer Science 101</strong>
-              <p style="margin: 0; font-size: 12px; color: #666">
-                Introduction to Programming
-              </p>
-            </div>
-          </li>
-          <li class="course-item">
-            <div class="course-item-icon">
-              <i class="fas fa-chart-line"></i>
-            </div>
-            <div>
-              <strong>Data Analytics</strong>
-              <p style="margin: 0; font-size: 12px; color: #666">
-                Advanced Techniques
-              </p>
-            </div>
-          </li>
-          <li class="course-item">
-            <div class="course-item-icon">
-              <i class="fas fa-network-wired"></i>
-            </div>
-            <div>
-              <strong>Network Security</strong>
-              <p style="margin: 0; font-size: 12px; color: #666">
-                Cybersecurity Fundamentals
-              </p>
-            </div>
-          </li>
+        <ul class="course-list" id="courseList">
+          <!-- Courses will be dynamically inserted here -->
         </ul>
       </div>
 
@@ -134,7 +102,7 @@
           </div>
         </div>
 
-      <div class="dashboard-card">
+        <div class="dashboard-card">
           <div class="card-header">
             <h3 class="card-title">Summary</h3>
             <i class="fas fa-file-alt" style="color: #1e3a8a"></i>
@@ -145,8 +113,13 @@
         </div>
       </div>
     </div>
-
-
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+    <script src="js/teacher.js"></script>
     <script>
       document
         .getElementById("logoutButton")

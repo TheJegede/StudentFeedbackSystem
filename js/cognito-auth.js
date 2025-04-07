@@ -163,6 +163,7 @@ var WildRydes = window.WildRydes || {};
 
             if (userGroups.includes("TeacherGroup")) {
               window.location.href = "teacher-dashboard.html";
+              localStorage.setItem("teacherEmail", email);
             } else {
               window.location.href = "landing.html";
             }
