@@ -106,6 +106,7 @@ window.onload = async function () {
         const positive = Math.round(sentiment_scores.Positive * 100);
         const neutral = Math.round(sentiment_scores.Neutral * 100);
         const negative = Math.round(sentiment_scores.Negative * 100);
+        const mixed = Math.round(sentiment_scores.Mixed * 100);
 
         const sentimentBar = document.createElement("div");
         sentimentBar.style.marginTop = "15px";
@@ -115,11 +116,13 @@ window.onload = async function () {
           <div style="width: ${positive}%; background-color: #4caf50;"></div>
           <div style="width: ${neutral}%; background-color: #ff9800;"></div>
           <div style="width: ${negative}%; background-color: #f44336;"></div>
+          <div style="width: ${mixed}%; background-color: #c1c1c1;"></div>
         </div>
         <p style="margin: 5px 0 0; font-size: 10px; font-weight: 100;">
           <span style="color: #4caf50">Positive: ${positive}%</span> |
           <span style="color: #ff9800">Neutral: ${neutral}%</span> |
-          <span style="color: #f44336">Negative: ${negative}%</span>
+          <span style="color: #f44336">Negative: ${negative}%</span> |
+          <span style="color: #c1c1c1">Mixed: ${mixed}%</span>
         </p>
       `;
 
