@@ -43,6 +43,12 @@ window.onload = async function () {
       const courses = JSON.parse(responseData.body);
       console.log("Parsed course array:", courses);
 
+      const professor = courses[0]?.professor || "Professor";
+
+      const welcomeMsg = document.querySelector(".welcome-message");
+
+      welcomeMsg.innerHTML = `Welcome, ${professor}`;
+
       const courseList = document.getElementById("courseList");
       courseList.innerHTML = "";
 

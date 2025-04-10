@@ -36,6 +36,14 @@ header img {
   filter: brightness(0) invert(1);
 }
 
+.welcome-span {
+  display: flex;
+  gap: 9px;
+  color: white;
+  font-weight: 100;
+  align-items: center;
+}
+
 .logout-btn {
   background: #ffffff;
   color: #1e3a8a;
@@ -68,7 +76,6 @@ header img {
   flex: 1 1 0;
   min-width: 0;
 }
-
 
 /* Sidebar */
 .sidebar {
@@ -181,5 +188,10 @@ header img {
   .dashboard-card {
     padding: 15px;
     max-width: 90%;
+  }
+
+  .logout-btn {
+    padding: 8px 8px;
+    font-size: 10px;
   }
 }
