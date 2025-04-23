@@ -64,8 +64,34 @@
                         
                         <div class="form-group">
                             <label for="courseTitle">Course Title:</label>
-                            <input type="text" id="courseTitle" required>
+                            <select id="courseTitle" required>
+                                <option value="" disabled selected>Select a Course</option>
+                                <!-- Courses will be populated here dynamically -->
+                            </select>
                         </div>
+                        
+                        <script>
+                            // Fetch the courses from your API and populate the dropdown
+                            fetch('https://an918u267j.execute-api.us-east-1.amazonaws.com/prod/coursesretrieval')
+                                .then(response => response.json())
+                                .then(data => {
+                                    const courseSelect = document.getElementById('courseTitle');
+                                    
+                                    // Clear any existing options (if needed)
+                                    courseSelect.innerHTML = '<option value="" disabled selected>Select a Course</option>';
+                                    
+                                    // Loop through the course data and populate the dropdown
+                                    data.courses.forEach(course => {
+                                        const option = document.createElement('option');
+                                        option.value = course;
+                                        option.textContent = course;
+                                        courseSelect.appendChild(option);
+                                    });
+                                })
+                                .catch(error => {
+                                    console.error('Error fetching courses:', error);
+                                });
+                        </script>
                         
                         <div class="form-group">
                             <label for="feedback">Feedback:</label>
