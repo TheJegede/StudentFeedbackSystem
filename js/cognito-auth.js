@@ -136,17 +136,50 @@ var WildRydes = window.WildRydes || {};
     var email = $("#emailInputSignin").val();
     var password = $("#passwordInputSignin").val();
     event.preventDefault();
+
     signin(
       email,
       password,
-      function signinSuccess() {
+      function signinSuccess(result) {
         console.log("Successfully Logged In");
-        window.location.href = "landing.html";
+
+        var cognitoUser = userPool.getCurrentUser();
+        if (cognitoUser) {
+          cognitoUser.getSession(function sessionCallback(err, session) {
+            if (err) {
+              alert("Session error: " + err);
+              return;
+            }
+            if (!session.isValid()) {
+              alert("Invalid session");
+              return;
+            }
+            var idToken = session.getIdToken().getJwtToken();
+
+            var tokenPayload = parseJwt(idToken);
+            var userGroups = tokenPayload["cognito:groups"] || [];
+
+            console.log("User groups: ", userGroups);
+
+            if (userGroups.includes("TeacherGroup")) {
+              window.location.href = "teacher-dashboard.html";
+              localStorage.setItem("teacherEmail", email);
+            } else {
+              window.location.href = "landing.html";
+            }
+          });
+        }
       },
       function signinError(err) {
         alert(err);
       }
     );
+  }
+
+  function parseJwt(token) {
+    var base64Url = token.split(".")[1];
+    var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    return JSON.parse(window.atob(base64));
   }
 
   function handleRegister(event) {
