@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const responseData = await response.json();
       if (response.ok) {
+        console.log("This is the response data" + responseData)
         alert("Feedback submitted successfully!");
         form.reset();
       } else {
