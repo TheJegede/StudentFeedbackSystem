@@ -8,10 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const enumber = document.getElementById("enumber").value.trim();
     const major = document.getElementById("major").value.trim();
     const year = document.getElementById("year").value;
-    const course = document.getElementById("courseTitle").value.trim();
+    const input = document.getElementById("courseTitle").value.trim();
+    const [courseNumber, courseTitle] = input.split(" - ");
     const feedback = document.getElementById("feedback").value.trim();
 
-    if (!enumber || !major || !year || !course || !feedback) {
+    if (!enumber || !major || !year || !input || !feedback) {
       alert("Please fill in all fields.");
       return;
     }
@@ -33,11 +34,13 @@ document.addEventListener("DOMContentLoaded", function () {
         enumber: enumber,
         major: major,
         year: year,
-        course: course,
+        course_number: courseNumber,
+        course_title: courseTitle,
         feedback: feedback,
         timestamp: new Date().toISOString(),
       };
 
+      console.log("Request to be sent:", JSON.stringify(requestBody, null, 2));
       // Send request to API Gateway
       const response = await fetch(apiUrl, {
         method: "POST",
@@ -50,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const responseData = await response.json();
       if (response.ok) {
-        console.log("This is the response data" + responseData)
+        console.log("This is the response data" + responseData.body)
         alert("Feedback submitted successfully!");
         form.reset();
       } else {
