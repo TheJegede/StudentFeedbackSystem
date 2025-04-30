@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(authToken);
       // Define API Gateway URL (Replace with your actual API endpoint)
       // const apiUrl = "https://an918u267j.execute-api.us-east-1.amazonaws.com/dev";
-      const apiUrl = _config.api.invokeUrl + "/StudentFeedback";
+      const apiUrl = _config.api.invokeUrl + "/StudentFeedbacks";
       console.log(apiUrl);
       // Prepare request payload
       const requestBody = {
