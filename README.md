@@ -62,27 +62,11 @@ Submit a POST request to your API Gateway endpoint:
 }
 ```
 
-## 📷 Screenshots
-
-![Student Submission](resources/screenshots/student_form.png)
-![Teacher Dashboard](resources/screenshots/teacher_dashboard.png)
-
 ## 📈 Future Improvements
 
 - Add feedback topic modeling for deeper insights.
 - Implement asynchronous processing queues (e.g., SQS) for scale.
 - Enable admin analytics and CSV export options.
-- Improve UI/UX for accessibility.
-
-## 👥 Team Members
-
-- **Taiwo Jegede** – AI/NLP Integration, Backend Architecture
-- **Adesola Ogunnubi** – Data Handling, Documentation
-- **Timilehin Akano** – Project Management, AWS Backend
-
-## 🙏 Acknowledgments
-
-Special thanks to **Dr. Roach** for supervising and guiding this project through every stage.
 
 ## 📄 License
 
